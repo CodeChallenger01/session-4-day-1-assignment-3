@@ -3,7 +3,7 @@ package com.knoldus
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-import scala.language.postfixOps
+import scala.language.{postfixOps, reflectiveCalls}
 
 class FindNthNumberFromLastTest extends AnyFlatSpec with Matchers {
 
@@ -21,7 +21,7 @@ class FindNthNumberFromLastTest extends AnyFlatSpec with Matchers {
     val list = List(1, 2, 3, 4, 5, 6)
     val nthElement = 2
     val result = testObj.findNthElementFromLast(list, nthElement)
-    val actualOutput = result.getOrElse(result, None)
+    val actualOutput = result.getOrElse(None)
     val expectedOutput = 5
     expectedOutput shouldBe actualOutput
   }
@@ -38,7 +38,7 @@ class FindNthNumberFromLastTest extends AnyFlatSpec with Matchers {
     val list = List(1, 2, 3, 4, 5, 6)
     val nthElement = 2
     val result = testObj.findNthElementFromLast(list, nthElement)
-    val actualOutput = result.getOrElse(result, None)
+    val actualOutput = result.getOrElse(None)
     val expectedOutput = 10
     assert(expectedOutput != actualOutput)
   }
@@ -47,7 +47,7 @@ class FindNthNumberFromLastTest extends AnyFlatSpec with Matchers {
     val list = List(1, 2, 3, 4, 5, 6)
     val nthElement = 6
     val result = testObj.findNthElementFromLast(list, nthElement)
-    val actualOutput = result.getOrElse(result, None)
+    val actualOutput = result.getOrElse(None)
     val expectedOutput = 1
     assert(expectedOutput == actualOutput)
   }
@@ -57,7 +57,7 @@ class FindNthNumberFromLastTest extends AnyFlatSpec with Matchers {
     val stringList = List("Manish", "Rahul", "Akhil", "Jitendra")
     val nthElement = 4
     val result = testObj.findNthElementFromLast(stringList, nthElement)
-    val actualOutput = result.getOrElse(result, None)
+    val actualOutput = result.getOrElse(None)
     val expectedOutput = "Manish"
     expectedOutput shouldBe actualOutput
   }
@@ -65,37 +65,33 @@ class FindNthNumberFromLastTest extends AnyFlatSpec with Matchers {
   "it" should "return the 2 element of string from last " in {
     val stringList = List("Manish", "Rahul", "Akhil", "Jitendra")
     val nthElement = 2
-    val result = testObj.findNthElementFromLast(stringList, nthElement)
-    val actualOutput: String = result.getOrElse(result, None)
+    val result = testObj.findNthElementFromLast(stringList, nthElement).getOrElse(0)
     val expectedOutput = "Akhil"
-    assert(expectedOutput == actualOutput)
+    assert(expectedOutput == result)
   }
 
   /*Checking with long type list*/
   "it" should "return the 4 element of long integer from last " in {
     val longList = List(4121l, 21212l, 121221l, 2112l)
     val nthElement = 4
-    val result = testObj.findNthElementFromLast(longList, nthElement)
-    val actualOutput = result.getOrElse(result, None)
+    val result = testObj.findNthElementFromLast(longList, nthElement).getOrElse(0)
     val expectedOutput = 4121l
-    expectedOutput shouldBe actualOutput
+    expectedOutput shouldBe result
   }
 
   "it" should "return the 1 element of long integer from last " in {
     val longList = List(4121l, 21212l, 121221l, 2112l)
     val nthElement = 1
-    val result = testObj.findNthElementFromLast(longList, nthElement)
-    val actualOutput = result.getOrElse(result, None)
+    val result = testObj.findNthElementFromLast(longList, nthElement).getOrElse(0)
     val expectedOutput = 2112l
-    assert(expectedOutput == actualOutput)
+    assert(expectedOutput == result)
   }
   "it" should "not return the 1 element of long integer from last if searched for 3rd" in {
     val longList = List(4121l, 21212l, 121221l, 2112l)
     val nthElement = 3
-    val result = testObj.findNthElementFromLast(longList, nthElement)
-    val actualOutput = result.getOrElse(result, None)
+    val result = testObj.findNthElementFromLast(longList, nthElement).getOrElse(0)
     val expectedOutput = 2112l
-    assert(expectedOutput != actualOutput)
+    assert(expectedOutput != result)
   }
 
 }
